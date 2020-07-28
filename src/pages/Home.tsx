@@ -39,6 +39,8 @@ class HomePage extends Component<State, State> {
     constructor(props: State) {
         super(props);
 
+        console.log("Home component being rendered.");
+
         this.state = {
             currentManga: null,
             items: [],

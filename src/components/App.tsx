@@ -26,7 +26,7 @@ export default class App extends Component {
             <>
                 <IsUserOnElectron>
                     <div className="app-frame">
-                        <p>MangaDesktop</p>
+                        <p>MangaDesk</p>
                     </div>
                 </IsUserOnElectron>
                 <div className="app-container">

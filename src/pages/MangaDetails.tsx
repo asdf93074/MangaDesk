@@ -40,18 +40,18 @@ class MangaDetails extends Component<State, State> {
         return (
             <div className="app-body-content">
                 <div className="page-title">
-                    <p>{this.state.manga.name}</p>
+                    <p>{this.props.manga.name}</p>
                 </div>
                 <div className="manga-detail">
                     <div className="manga-cover">
-                        <img src={this.state.manga.imageUrl} />
+                        <img src={this.props.manga.imageUrl} />
                     </div>
                     <div className="manga-title-and-description">
                         <div className="manga-title">
-                            <h3>{this.state.manga.name}</h3>
+                            <h3>{this.props.manga.name}</h3>
                         </div>
                         <div className="manga-description">
-                            <p>{this.state.manga.description}</p>
+                            <p>{this.props.manga.description}</p>
                         </div>
                     </div>
                 </div>
