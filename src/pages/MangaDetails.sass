@@ -1,0 +1,72 @@
+.manga-detail
+    display: flex
+    flex-direction: row
+    flex-wrap: nowrap
+
+    .manga-cover
+        margin-right: 20px
+
+        img
+            height: 300px
+
+    .manga-title-and-description
+        display: flex
+        flex-flow: column nowrap
+
+        .manga-description
+            font-size: 14px
+
+.manga-detail-2
+    flex-grow: 1
+    flex-flow: row nowrap
+    height: calc(100% - 400px)
+    padding: 20px
+
+    .chapter-title
+        margin-bottom: 10px
+
+        h3
+            margin: 0
+
+    .chapter-list
+        display: flex
+        flex-flow: column nowrap
+        overflow-y: auto
+        flex-basis: 50%
+        width: 500px
+        height: 100%
+        box-sizing: border-box
+
+        .chapter-list-item
+            padding: 4px 8px
+            font-size: 14px
+            display: flex
+            flex-flow: column nowrap
+            box-sizing: border-box
+            cursor: pointer
+            transition-duration: 0.3s
+
+            p
+                font-size: 11px
+                color: hsl(240, 23.5%, 75.1%)
+                padding-bottom: 5px
+                box-sizing: border-box
+
+            p:first-child
+                color: hsl(240, 23.5%, 85.1%)
+                font-size: 1em
+                flex-grow: 1
+    
+        .chapter-list-item:nth-child(even)
+            background-color: hsl(240, 23.5%, 10.1%)
+
+        .chapter-list-item:nth-child(odd)
+            background-color: hsl(240, 23.5%, 5.1%)
+
+        .chapter-list-item:hover
+            background-color: hsl(240, 23.5%, 20.1%)
+            transition-duration: 0.3s
+
+
+    .chapter-list::-webkit-scrollbar
+        display: none

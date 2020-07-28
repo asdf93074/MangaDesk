@@ -3,13 +3,21 @@ import {
     Switch,
     Route
 } from "react-router-dom";
-import HomePage from './HomePage';
+import Home from '../pages/Home';
 import './App.sass';
 import TopNavigationBar from './TopNavigationBar';
 import IsUserOnElectron from './isUserOnElectron';
+import MangaDetails from '../pages/MangaDetails';
+import '../app/index';
+
+interface State {
+
+}
 
 export default class App extends Component {
-    constructor(props) {
+    state: State;
+
+    constructor(props: State) {
         super(props);
     }
 
@@ -25,7 +33,10 @@ export default class App extends Component {
                     <TopNavigationBar />
                     <div className="app-body">
                         <Switch>
-                            <Route path="/" component={HomePage} />
+                            <Route path="/mangafox/:name" component={MangaDetails} exact />
+                        </Switch>
+                        <Switch>
+                            <Route path="/" component={Home} exact />
                         </Switch>
                     </div>
                 </div>

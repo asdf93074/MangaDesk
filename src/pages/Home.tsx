@@ -1,17 +1,46 @@
-import React, { Component } from 'react';
+import React, { Component, ChangeEvent, SyntheticEvent, Dispatch } from 'react';
 import axios from 'axios';
-import ReactDOM from 'react-dom';
 import env from '../constants/environment';
-import './HomePage.sass';
-import MangaCard from './MangaCard';
-import IsUserOnElectron from './isUserOnElectron';
+import './Home.sass';
+import MangaCard from '../components/MangaCard';
+import IsUserOnElectron from '../components/isUserOnElectron';
 import { MdSearch, MdClose } from 'react-icons/md';
+import MangaInfo from '../models/MangaInfo.model';
+import Manga from '../models/Manga.model';
+import { History } from 'history';
+import { connect, RootStateOrAny } from 'react-redux';
+import { setCurrentManga } from '../app/actions/index';
 
-class HomePage extends Component {
-    constructor(props) {
+const mapStateToProps = (state: RootStateOrAny) => {
+    return { currentManga: state.currentManga };
+};
+
+function mapDispatchToProps(dispatch: any) {
+    return {
+      addManga: (manga: Manga): any => dispatch(setCurrentManga(manga))
+    };
+}
+
+type State = {
+    currentManga?: Manga,
+    items?: MangaInfo[],
+    filteredItems?: MangaInfo[],
+    search?: string,
+    searchPage?: number,
+    searchBadge?: string,
+    fetchedManga?: boolean,
+    pageNumber?: number,
+    history?: History,
+    addManga?(manga: Manga): any
+}
+
+class HomePage extends Component<State, State> {
+
+    constructor(props: State) {
         super(props);
 
         this.state = {
+            currentManga: null,
             items: [],
             filteredItems: [],
             search: '',
@@ -23,7 +52,7 @@ class HomePage extends Component {
     }
 
     componentDidMount() {
-        axios.get(env.API + `/mangafox/manga/${this.state.pageNumber}`).then(res => {
+        axios.get<MangaInfo[]>(env.API + `/mangafox/all/${this.state.pageNumber}`).then(res => {
             this.setState({
                 items: [...this.state.items, ...res.data],
                 filteredItems: [...this.state.items, ...res.data],
@@ -34,41 +63,53 @@ class HomePage extends Component {
         });
     }
 
-    onFilter(event) {
+    onFilter(event: ChangeEvent<HTMLInputElement>) {
         this.setState({
             search: event.target.value
-        })
+        });
 
         this.filterManga(event.target.value);
     }
 
-    filterManga(name) {
-        console.log(name);
+    filterManga(name: string) {
         this.setState({
             filteredItems: this.state.items.filter((manga) => {
-                return manga[1].toLowerCase().includes(name.toLowerCase());
+                return manga.title.toLowerCase().includes(name.toLowerCase());
             })
-        })
+        });
     }
 
-    searchManga(name) {
+    searchManga(name: string) {
         const searchTerm = this.state.search;
 
-        axios.get(env.API + `/mangafox/manga/search/${searchTerm}/${this.state.searchPage}`).then(res => {
+        axios.get<MangaInfo[]>(env.API + `/mangafox/manga/search/${searchTerm}/${this.state.searchPage}`).then(res => {
             this.setState({
                 filteredItems: [...res.data],
                 searchBadge: searchTerm
             });
         }).catch(err => {
             console.log(err);
-        })
+        });
     }
 
-    stopSearch(event) {
+    stopSearch(event: SyntheticEvent<HTMLElement>) {
         this.setState({
             searchBadge: null,
             search: '',
             filteredItems: [...this.state.items]
+        });
+    }
+
+    getOneManga(url: string, event: SyntheticEvent<HTMLElement>) {
+        axios.post<Manga>(env.API + `/mangafox/manga/getOne`, { url }).then(res => {
+            this.setState({
+                currentManga: res.data
+            });
+            
+            this.props.addManga(res.data);
+            this.props.history.push('/mangafox/' + res.data.name.replace(" ", "_"));
+        }).catch(err => {
+            console.log(err);
         });
     }
 
@@ -90,11 +131,11 @@ class HomePage extends Component {
                 <div>{this.state.fetchedManga}</div>
                 <div className="manga-holder">
                     {this.state.fetchedManga ? null : <div className="spinner">Loading...</div>}
-                    {this.state.filteredItems.map(item => <MangaCard key={item[1]} title={item[1]} description={item[2]} cover={item[0]} />)}
+                    {this.state.filteredItems.map(item => <MangaCard onClick={this.getOneManga.bind(this, item.url)} key={item.title} title={item.title} cover={item.coverImageUrl} />)}
                 </div>
             </div>
         )
     }
 }
 
-export default HomePage;
+export default connect(null, mapDispatchToProps)(HomePage);

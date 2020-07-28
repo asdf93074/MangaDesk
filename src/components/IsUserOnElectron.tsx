@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 
+interface State {}
+
 class IsUserOnElectron extends Component {
-    constructor(props) {
+    state: State;
+
+    constructor(props: State) {
         super(props);
     }
 
