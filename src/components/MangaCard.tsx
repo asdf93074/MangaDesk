@@ -1,6 +1,6 @@
-import React, { Component, SyntheticEvent } from 'react';
+import React, {Component, SyntheticEvent} from 'react';
 
-import './MangaCard.sass'
+import './MangaCard.sass';
 
 interface State {
     title: string;
@@ -9,24 +9,24 @@ interface State {
 }
 
 class MangaCard extends Component {
-    props: State;
+  props: State;
 
-    constructor(props: State) {
-        super(props);
-    }
+  constructor(props: State) {
+    super(props);
+  }
 
-    render() {
-        return (
-            <div className="manga-card" onClick={this.props.onClick}>
-                <div className="manga-card-cover">
-                    <img src={this.props.cover} />
-                </div>
-                <div className="manga-card-title">
-                    <p>{this.props.title}</p>
-                </div>
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div className="manga-card" onClick={this.props.onClick}>
+        <div className="manga-card-cover">
+          <img src={this.props.cover} />
+        </div>
+        <div className="manga-card-title">
+          <p>{this.props.title}</p>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default MangaCard;

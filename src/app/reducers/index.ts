@@ -1,22 +1,29 @@
 import Manga from '../../models/Manga.model';
-import { ACTION } from '../actions/index';
+import Chapter from '../../models/Chapter.model';
+import { ACTION } from '../../constants/actions';
 
 interface State {
-    currentManga: Manga
+  currentManga: Manga;
+  currentChapter: Chapter;
 }
 
 const initialState: State = {
-    currentManga: null
+  currentManga: null,
+  currentChapter: null
 };
 
 function rootReducer(state = initialState, action: { type: ACTION; payload: any; }) {
-    if (action.type === ACTION.SET_CURRENT_MANGA) {
-        return Object.assign({}, state, {
-            currentManga: action.payload
-        });
-    }
+  if (action.type === ACTION.SET_CURRENT_MANGA) {
+    return Object.assign({}, state, {
+      currentManga: action.payload
+    });
+  } else if (action.type === ACTION.SET_CURRENT_CHAPTER) {
+    return Object.assign({}, state, {
+      currentChapter: action.payload
+    });
+  }
 
-    return state;
+  return state;
 }
 
 export default rootReducer;
