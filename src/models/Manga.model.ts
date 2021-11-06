@@ -1,10 +1,11 @@
-import Chapter from "./Chapter.model";
+import Chapter from './Chapter.model';
 
 class Manga {
-    name: string;
-    imageUrl: string;
-    description: string;
-    chapters: Chapter[] = [];
+  title: string;
+	name: string;
+  imageUrl: string;
+  description: string;
+  chapters: Chapter[] = [];
 }
 
 export default Manga;

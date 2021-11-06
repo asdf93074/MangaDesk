@@ -24,5 +24,7 @@ module.exports = {
     'max-len': [0, {'code': 130}],
     'linebreak-style': 0,
     'react/prop-types': 0,
+    'no-tabs': 0,
+		'indent': 0,
   },
 };

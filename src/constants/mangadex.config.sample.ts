@@ -1,5 +1,5 @@
 /*
-  Create a copy of this file as mangadex.config.js
+  Create a copy of this file as mangadex.config.ts
   and add your mangadex username and password to it
   in the object below.
 */

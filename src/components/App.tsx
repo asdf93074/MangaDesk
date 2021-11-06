@@ -4,15 +4,15 @@ import {
   Route,
 } from 'react-router-dom';
 
-import MFA from 'mangadex-full-api';
-
 import Home from '../pages/Home/Home';
-import './App.sass';
 import TopNavigationBar from './layout/TopNavigationBar';
 import IsUserOnElectron from './isUserOnElectron';
 import MangaDetails from '../pages/MangaDetails';
-import '../app/index';
 import Reader from '../pages/Reader';
+
+import '../app/index';
+
+import './App.sass';
 
 interface State {
 
@@ -23,10 +23,6 @@ export default class App extends Component {
 
   constructor(props: State) {
     super(props);
-
-    this.state = {
-      "MFA": 
-    }
   }
 
   render() {

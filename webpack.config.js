@@ -1,13 +1,18 @@
-const HtmlWebPackPlugin = require("html-webpack-plugin");
+const HtmlWebPackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
 module.exports = {
   entry: path.resolve(__dirname, './src/index.tsx'),
   output: {
-    path: path.resolve(__dirname, './dist')
+    path: path.resolve(__dirname, './dist'),
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.json']
+    extensions: ['.ts', '.tsx', '.js', '.json'],
+		alias: {
+      'src': path.resolve('./src'),
+      'api': path.resolve('./src/api'),
+      'models': path.resolve('./src/models'),
+    },
   },
   module: {
     rules: [
@@ -15,23 +20,23 @@ module.exports = {
         test: /\.(tsx|ts)$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader"
-        }
+          loader: 'ts-loader',
+        },
       },
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader"
-        }
+          loader: 'babel-loader',
+        },
       },
       {
         test: /\.html$/,
         use: [
           {
-            loader: "html-loader"
-          }
-        ]
+            loader: 'html-loader',
+          },
+        ],
       },
       {
         test: /\.s[ac]ss$/i,
@@ -44,15 +49,16 @@ module.exports = {
           'sass-loader',
         ],
       },
-    ]
+    ],
   },
   plugins: [
     new HtmlWebPackPlugin({
-      template: "src/index.html",
-      filename: "index.html"
-    })
+      template: 'src/index.html',
+      filename: 'index.html',
+    }),
   ],
   devServer: {
-    historyApiFallback: true
-  }
+    historyApiFallback: true,
+		watchFiles: './dist',
+  },
 };

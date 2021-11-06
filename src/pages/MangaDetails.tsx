@@ -1,23 +1,22 @@
-import React, { Component, SyntheticEvent } from 'react';
+import React, {Component, SyntheticEvent} from 'react';
 import axios from 'axios';
 import './MangaDetails.sass';
 import Manga from '../models/Manga.model';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import env from '../constants/environment';
 import Chapter from '../models/Chapter.model';
-import { History } from 'history';
-import { setCurrentChapter, setCurrentManga } from '../app/actions/index';
-import { match } from 'react-router';
+import {History} from 'history';
+import {setCurrentChapter, setCurrentManga} from '../app/actions/index';
 
 const mapStateToProps = (store: any) => {
   return {
-    manga: store.currentManga
-  }
-}
+    manga: store.currentManga,
+  };
+};
 function mapDispatchToProps(dispatch: any) {
   return {
     setCurrentChapter: (chapter: Chapter): any => dispatch(setCurrentChapter(chapter)),
-    addManga: (manga: Manga): any => dispatch(setCurrentManga(manga))
+    addManga: (manga: Manga): any => dispatch(setCurrentManga(manga)),
   };
 }
 
@@ -34,8 +33,8 @@ class MangaDetails extends Component<State, State> {
     super(props);
 
     this.state = {
-      manga: this.props.manga
-    }
+      manga: this.props.manga,
+    };
   }
 
   componentDidMount() {
@@ -43,14 +42,14 @@ class MangaDetails extends Component<State, State> {
   }
 
   init(url: string) {
-    axios.post<Manga>(env.API + `/mangafox/manga/getOne`, { url }).then(res => {
+    axios.post<Manga>(env.API + `/mangafox/manga/getOne`, {url}).then((res) => {
       this.setState({
-        manga: res.data
+        manga: res.data,
       });
 
       this.props.addManga(res.data);
-      this.props.history.push('/mangafox/manga/' + res.data.name.replace(" ", "_"));
-    }).catch(err => {
+      this.props.history.push('/mangafox/manga/' + res.data.name.replace(' ', '_'));
+    }).catch((err) => {
       console.log(err);
     });
   }
@@ -91,16 +90,16 @@ class MangaDetails extends Component<State, State> {
           </div>
           <div className="chapter-list">
             {this.state.manga.chapters.map((ch, i) => {
-              return <div onClick={this.readChapter.bind(this, ch)} className="chapter-list-item" key={ch.title}><p>{ch.title}</p> <p>{ch.date}</p></div>
+              return <div onClick={this.readChapter.bind(this, ch)} className="chapter-list-item" key={ch.title}><p>{ch.title}</p> <p>{ch.date}</p></div>;
             })}
           </div>
         </div>
         <div className="manga-chapters">
 
         </div>
-      </div>
-      : null
-    )
+      </div> :
+      null
+    );
   }
 }
 

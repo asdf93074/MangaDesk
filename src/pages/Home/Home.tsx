@@ -1,5 +1,8 @@
 import React, {Component, ChangeEvent, SyntheticEvent} from 'react';
+import {connect, RootStateOrAny} from 'react-redux';
+
 import axios from 'axios';
+
 import env from '../../constants/environment';
 import './Home.sass';
 import MangaCard from '../../components/MangaCard';
@@ -7,8 +10,8 @@ import {MdSearch, MdClose} from 'react-icons/md';
 import MangaInfo from '../../models/MangaInfo.model';
 import Manga from '../../models/Manga.model';
 import {History} from 'history';
-import {connect, RootStateOrAny} from 'react-redux';
 import {setCurrentManga} from '../../app/actions/index';
+import {MangadexApi} from 'api/mangadex/mangadex-api';
 
 // eslint-disable-next-line no-unused-vars
 const mapStateToProps = (state: RootStateOrAny) => {
@@ -31,10 +34,13 @@ type State = {
   fetchedManga?: boolean,
   pageNumber?: number,
   history?: History,
+	mangadexApi?: MangadexApi,
   addManga?(manga: Manga): any
 }
 
 class HomePage extends Component<State, State> {
+	mangadexApi: MangadexApi;
+
   constructor(props: State) {
     super(props);
 
@@ -48,18 +54,17 @@ class HomePage extends Component<State, State> {
       fetchedManga: false,
       pageNumber: 1,
     };
+
+		this.mangadexApi = new MangadexApi();
   }
 
-  componentDidMount() {
-    axios.get<MangaInfo[]>(env.API + `/mangafox/all/${this.state.pageNumber}`).then((res) => {
-      this.setState({
-        items: [...this.state.items, ...res.data],
-        filteredItems: [...this.state.items, ...res.data],
-        fetchedManga: true,
-      });
-    }).catch((err) => {
-      console.log(err);
-    });
+  async componentDidMount() {
+		const d = await this.mangadexApi.manga.get();
+		this.setState({
+			items: d,
+			filteredItems: d,
+			fetchedManga: true,
+		});
   }
 
   onFilter(event: ChangeEvent<HTMLInputElement>) {
@@ -100,16 +105,6 @@ class HomePage extends Component<State, State> {
   }
 
   getOneManga(url: string, event: SyntheticEvent<HTMLElement>) {
-    axios.post<Manga>(env.API + `/mangafox/manga/getOne`, {url}).then((res) => {
-      this.setState({
-        currentManga: res.data,
-      });
-
-      this.props.addManga(res.data);
-      this.props.history.push('/mangafox/manga/' + res.data.name.replace(' ', '_'));
-    }).catch((err) => {
-      console.log(err);
-    });
   }
 
   render() {
