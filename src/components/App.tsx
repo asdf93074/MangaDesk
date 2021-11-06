@@ -3,6 +3,9 @@ import {
   Switch,
   Route,
 } from 'react-router-dom';
+
+import MFA from 'mangadex-full-api';
+
 import Home from '../pages/Home/Home';
 import './App.sass';
 import TopNavigationBar from './layout/TopNavigationBar';
@@ -20,6 +23,10 @@ export default class App extends Component {
 
   constructor(props: State) {
     super(props);
+
+    this.state = {
+      "MFA": 
+    }
   }
 
   render() {
