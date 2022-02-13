@@ -36,6 +36,9 @@
     "webpack-dev-server": "^4.4.0"
   },
   "dependencies": {
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0",
+    "@mui/material": "^5.4.1",
     "@reduxjs/toolkit": "^1.6.2",
     "@types/react": "^16.9.43",
     "@types/react-dom": "^16.9.8",
@@ -44,10 +47,11 @@
     "electron": "^9.1.1",
     "mangadex-full-api": "^5.7.0",
     "querystring-es3": "^0.2.1",
-    "react": "^16.13.1",
+    "react": "^17.0.2",
     "react-dom": "^16.13.1",
     "react-icons": "^3.10.0",
-    "react-redux": "^7.2.0",
+    "react-infinite-scroll-component": "^6.1.0",
+    "react-redux": "^7.2.6",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "typescript": "^3.9.7"

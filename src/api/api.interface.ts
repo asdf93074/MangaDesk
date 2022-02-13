@@ -1,13 +1,8 @@
-import MangaInfo from 'models/MangaInfo.model';
+import { Manga } from 'models/manga';
 
-export interface routeItem {
-	url?: string;
-	convert: (...data: any) => any;
+export interface MangaAPI {
+	sourceName: string;
+	populateHome: (offset: number) => Promise<Manga[]>;
 }
 
-export interface MangaApi {
-	website: string;
-	baseUrl: string;
-	manga: MangaInfo;
-	routes: {[string: string] : routeItem};
-};
+export const a = 1;

@@ -1,6 +1,13 @@
-import {createStore} from 'redux';
-import rootReducer from './reducers/index';
+import { configureStore } from '@reduxjs/toolkit';
+import apiReducer from 'api/api-slice';
+import homeReducer from '../features/home/home-slice';
 
-const store = createStore(rootReducer);
+export const store = configureStore({
+	reducer: {
+		home: homeReducer,
+		api: apiReducer,
+	},
+});
 
-export default store;
+export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof store.getState>;

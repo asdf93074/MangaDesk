@@ -9,6 +9,7 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.json'],
 		alias: {
+			'./': path.resolve('./src/'),
       'src': path.resolve('./src'),
       'api': path.resolve('./src/api'),
       'models': path.resolve('./src/models'),
@@ -16,6 +17,12 @@ module.exports = {
   },
   module: {
     rules: [
+			{
+				test: /\.m?js/,
+				resolve: {
+					fullySpecified: false,
+				},
+			},
       {
         test: /\.(tsx|ts)$/,
         exclude: /node_modules/,

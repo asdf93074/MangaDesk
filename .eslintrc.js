@@ -26,5 +26,6 @@ module.exports = {
     'react/prop-types': 0,
     'no-tabs': 0,
 		'indent': 0,
+		'object-curly-spacing': 0,
   },
 };
