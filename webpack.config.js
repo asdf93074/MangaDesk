@@ -13,6 +13,7 @@ module.exports = {
       'src': path.resolve('./src'),
       'api': path.resolve('./src/api'),
       'models': path.resolve('./src/models'),
+      'features': path.resolve('./src/features'),
     },
   },
   module: {

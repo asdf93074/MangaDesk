@@ -1,9 +1,10 @@
+import { Manga } from 'models/manga';
 import React, { useRef } from 'react';
 
 import './Home.sass';
 import MangaCard from './Manga-Card';
 
-function Home(props: { mangaList: any[]; fetchData: () => any; }) {
+function Home(props: { mangaList: Manga[]; fetchData: () => any; }) {
 	const listInnerRef = useRef(null);
 
 	const onScroll = () => {
@@ -21,7 +22,15 @@ function Home(props: { mangaList: any[]; fetchData: () => any; }) {
 				<h3>Manga</h3>
 			</div>
 			<div className="list" id="manga-list" ref={listInnerRef} onScroll={onScroll}>
-				{props.mangaList.map((manga) => <MangaCard key={manga.id} coverUrl={manga.coverUrl}></MangaCard>)}
+				{
+					props.mangaList.map((manga: Manga) =>
+						<MangaCard
+							key={manga.id}
+							coverUrl={manga.coverUrl}
+							title={manga.name}
+							description={manga.description}
+						></MangaCard>)
+				}
 			</div>
 		</div>
 	);

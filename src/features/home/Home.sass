@@ -7,14 +7,35 @@
 	flex-flow: row wrap
 	width: 100%
 	height: calc(100% - 50px)
-	overflow: auto
+	overflow-y: scroll
+
+	&::-webkit-scrollbar
+		display: none
+
+	/* Hide scrollbar for IE, Edge and Firefox */
+	&
+		-ms-overflow-style: none  /* IE and Edge */
+		scrollbar-width: none  /* Firefox */
+
 
 	.manga-card
 		display: flex
-		width: 225px
+		width: calc(100% / 2)
 		height: 350px
-		padding: 10px
+		margin-bottom: 10px
 
-		img
-			height: 100%
-			width: 100%
+		.cover-image
+			cursor: pointer
+
+			img
+				height: 100%
+				width: 225px
+
+		.details
+			display: flex
+			flex-flow: column nowrap
+			padding: 0px 20px
+
+			h2
+				margin-top: 0
+				font-weight: bolder

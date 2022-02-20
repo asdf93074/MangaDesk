@@ -9,15 +9,17 @@ export class MangaDexAPI implements MangaAPI {
 
 	populateHome = (offset: number): Promise<Manga[]> => {
 		let mangas: Manga[] = [];
-		let incompleteData: Array<{ name: string, id: string, coverId: string }>;
+		let incompleteData: any[];
 
 		return axios.get(`${this.baseUrl}/manga?limit=${30}&offset=${offset}`)
 			.then((res) => {
 				const data = (res.data.data as []).map((d: any) => {
-					const name: string = d.attributes.title.en || d.attributes.altTitles[0];
-					const id = d.id;
-					const coverId = ((d.relationships as []).find((rel: any) => rel.type === 'cover_art') as any).id;
-					return { name, id, coverId };
+					return {
+						name: d.attributes.title.en || d.attributes.altTitles[0],
+						id: d.id,
+						coverId: ((d.relationships as []).find((rel: any) => rel.type === 'cover_art') as any).id,
+						description: d.attributes.description.en || d.attributes.description[0],
+					};
 				});
 
 				const coverUrls = axios.all(data.map((d) => axios.get(`${this.baseUrl}/cover/${d.coverId}`))).then((res: any) => {
@@ -34,6 +36,7 @@ export class MangaDexAPI implements MangaAPI {
 						id: d.id,
 						name: d.name,
 						coverUrl: `https://uploads.mangadex.org/covers/${d.id}/${coverUrls[i]}.512.jpg`,
+						description: d.description,
 					};
 				});
 

@@ -11,7 +11,7 @@ interface HomeState {
 const initialState: HomeState = {
 	mangas: [],
 	offset: 0,
-	limit: 100,
+	limit: 30,
 	loadingNextPage: false,
 };
 
@@ -22,12 +22,12 @@ const homeSlice = createSlice({
 		clear(state) {
 			state.mangas = [];
 		},
-		nextPage(state) {
+		incrementOffset(state, incrementBy) {
 			state.loadingNextPage = true;
-			state.offset++;
+			state.offset = state.offset + incrementBy.payload;
 		},
 	},
 });
 
-export const { clear, nextPage } = homeSlice.actions;
+export const { clear, incrementOffset } = homeSlice.actions;
 export default homeSlice.reducer;

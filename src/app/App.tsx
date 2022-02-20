@@ -10,6 +10,7 @@ import './App.sass';
 import isUserOnElectron from '../components/misc/IsUserOnElectron';
 import TopNavigationBar from '../components/layout/TopNavigationBar';
 import HomeContainer from '../features/home/Home.container';
+import MangaDetailsContainer from 'features/manga-details/manga-details.container';
 
 function App() {
 	return (
@@ -22,6 +23,9 @@ function App() {
 				<div className="app-body">
 					<Switch>
 						<Route path="/" component={HomeContainer} exact />
+					</Switch>
+					<Switch>
+						<Route path="/details/:id" component={MangaDetailsContainer} exact />
 					</Switch>
 				</div>
 			</div>
