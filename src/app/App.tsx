@@ -25,7 +25,7 @@ function App() {
 						<Route path="/" component={HomeContainer} exact />
 					</Switch>
 					<Switch>
-						<Route path="/details/:id" component={MangaDetailsContainer} exact />
+						<Route path="/manga/:id" component={MangaDetailsContainer} exact />
 					</Switch>
 				</div>
 			</div>

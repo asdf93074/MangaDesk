@@ -1,10 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-function MangaCard(props: { coverUrl: string; title: string; description: string; }) {
+function MangaCard(props: { id: string, coverUrl: string; title: string; description: string; }) {
 	return (
 		<div className="manga-card">
 			<div className="cover-image">
-				<img src={props.coverUrl} />
+				<Link to={`/manga/${props.id}`}>
+					<img src={props.coverUrl} />
+				</Link>
 			</div>
 			<div className="details">
 				<div className="title">

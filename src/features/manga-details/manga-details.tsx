@@ -1,8 +1,11 @@
+import FeatureHeader from 'components/feature-header/feature-header';
 import React from 'react';
 
 function MangaDetails() {
 	return (
-		<span>Details</span>
+		<div className="manga-details">
+			<FeatureHeader title={'Details'}></FeatureHeader>
+		</div>
 	);
 }
 

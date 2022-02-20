@@ -14,6 +14,7 @@ module.exports = {
       'api': path.resolve('./src/api'),
       'models': path.resolve('./src/models'),
       'features': path.resolve('./src/features'),
+      'components': path.resolve('./src/components'),
     },
   },
   module: {

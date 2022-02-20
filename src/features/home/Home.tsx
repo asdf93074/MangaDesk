@@ -1,3 +1,4 @@
+import FeatureHeader from 'components/feature-header/feature-header';
 import { Manga } from 'models/manga';
 import React, { useRef } from 'react';
 
@@ -18,9 +19,7 @@ function Home(props: { mangaList: Manga[]; fetchData: () => any; }) {
 
 	return (
 		<div className="home">
-			<div className="title">
-				<h3>Manga</h3>
-			</div>
+			<FeatureHeader title={'Manga'}></FeatureHeader>
 			<div className="list" id="manga-list" ref={listInnerRef} onScroll={onScroll}>
 				{
 					props.mangaList.map((manga: Manga) =>
@@ -29,6 +28,7 @@ function Home(props: { mangaList: Manga[]; fetchData: () => any; }) {
 							coverUrl={manga.coverUrl}
 							title={manga.name}
 							description={manga.description}
+							id={manga.id}
 						></MangaCard>)
 				}
 			</div>
