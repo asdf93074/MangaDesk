@@ -7,7 +7,7 @@ export class MangaDexAPI implements MangaAPI {
 	baseUrl = 'https://api.mangadex.org';
 	a = a;
 
-	populateHome = (offset: number): Promise<any> => {
+	populateHome = (offset: number): Promise<Manga[]> => {
 		let mangas: Manga[] = [];
 		let incompleteData: Array<{ name: string, id: string, coverId: string }>;
 
@@ -39,6 +39,9 @@ export class MangaDexAPI implements MangaAPI {
 
 				return mangas;
 			})
-			.catch((res) => console.error('Something went wrong while fetching manga.', res));
+			.catch((res) => {
+				console.error('Something went wrong while fetching manga.', res);
+				return [];
+			});
 	};
 }
