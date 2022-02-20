@@ -47,4 +47,25 @@ export class MangaDexAPI implements MangaAPI {
 				return [];
 			});
 	};
+
+	fetchMangaById = (id: string): Promise<Manga> => {
+		return axios.get(`${this.baseUrl}/manga/${id}`)
+			.then((res) => {
+				const d = res.data.data;
+
+				const data: Manga = {
+					name: d.attributes.title.en || d.attributes.altTitles[0],
+					id: d.id,
+					coverUrl: null,
+					description: d.attributes.description.en || d.attributes.description[0],
+					tags: (d.attributes.tags as []).map((tag: any) => tag.attributes.name.en),
+				};
+
+				return data;
+			})
+			.catch((res) => {
+				console.error(`Something went wrong while fetching manga ${id}.`, res);
+				return null;
+			});
+	};
 }
