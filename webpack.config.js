@@ -12,6 +12,7 @@ module.exports = {
 			'./': path.resolve('./src/'),
       'src': path.resolve('./src'),
       'api': path.resolve('./src/api'),
+      'app': path.resolve('./src/app'),
       'models': path.resolve('./src/models'),
       'features': path.resolve('./src/features'),
       'components': path.resolve('./src/components'),

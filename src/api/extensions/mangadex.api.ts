@@ -19,6 +19,7 @@ export class MangaDexAPI implements MangaAPI {
 						id: d.id,
 						coverId: ((d.relationships as []).find((rel: any) => rel.type === 'cover_art') as any).id,
 						description: d.attributes.description.en || d.attributes.description[0],
+						tags: (d.attributes.tags as []).map((tag: any) => tag.attributes.name.en),
 					};
 				});
 
@@ -37,6 +38,7 @@ export class MangaDexAPI implements MangaAPI {
 						name: d.name,
 						coverUrl: `https://uploads.mangadex.org/covers/${d.id}/${coverUrls[i]}.512.jpg`,
 						description: d.description,
+						tags: d.tags,
 					};
 				});
 

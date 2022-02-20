@@ -16,7 +16,6 @@ function HomeContainer() {
 			.then((nextMangas: Manga[]) => setMangas([...mangas, ...nextMangas]));
 	}, []);
 
-
 	const fetchData = () => {
 		offset = offset + 30;
 		dispatch(incrementOffset(30));

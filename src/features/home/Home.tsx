@@ -26,9 +26,10 @@ function Home(props: { mangaList: Manga[]; fetchData: () => any; }) {
 						<MangaCard
 							key={manga.id}
 							coverUrl={manga.coverUrl}
-							title={manga.name}
+							name={manga.name}
 							description={manga.description}
 							id={manga.id}
+							tags={manga.tags}
 						></MangaCard>)
 				}
 			</div>

@@ -3,4 +3,5 @@ export interface Manga {
 	name: string;
 	coverUrl: string;
 	description: string;
+	tags: string[];
 }
