@@ -1,4 +1,5 @@
 import { useAppSelector } from 'app/hooks';
+import { Manga } from 'models/manga';
 import React, { useEffect, useState } from 'react';
 import MangaDetails from './manga-details';
 
@@ -9,8 +10,8 @@ function MangaDetailsContainer(props: any) {
 
 	useEffect(() => {
 		api.fetchMangaById(id)
-			.then(setManga);
-	});
+			.then((manga: Manga) => setManga(manga));
+	}, []);
 
 	return (
 		<MangaDetails manga={manga}></MangaDetails>
