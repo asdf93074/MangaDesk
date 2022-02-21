@@ -14,6 +14,7 @@ module.exports = {
       'api': path.resolve('./src/api'),
       'app': path.resolve('./src/app'),
       'models': path.resolve('./src/models'),
+      './': path.resolve('./src/constants'),
       'features': path.resolve('./src/features'),
       'components': path.resolve('./src/components'),
     },
@@ -56,7 +57,12 @@ module.exports = {
           // Translates CSS into CommonJS
           'css-loader',
           // Compiles Sass to CSS
-          'sass-loader',
+          {
+						loader: 'sass-loader',
+						options: {
+							additionalData: '@import "src/constants/_global.sass"',
+						},
+					},
         ],
       },
     ],
