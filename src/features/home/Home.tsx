@@ -25,11 +25,7 @@ function Home(props: { mangaList: Manga[]; fetchData: () => any; }) {
 					props.mangaList.map((manga: Manga) =>
 						<MangaCard
 							key={manga.id}
-							coverUrl={manga.coverUrl}
-							name={manga.name}
-							description={manga.description}
-							id={manga.id}
-							tags={manga.tags}
+							manga={manga}
 						></MangaCard>)
 				}
 			</div>
