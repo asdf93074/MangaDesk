@@ -18,6 +18,7 @@ function Home(props: { mangaList: Manga[]; fetchData: () => any; }) {
   };
 
 	return (
+		props.mangaList?.length > 0 ?
 		<div className="home">
 			<FeatureHeader title={'Manga'}></FeatureHeader>
 			<div className="list" id="manga-list" ref={listInnerRef} onScroll={onScroll}>
@@ -29,7 +30,8 @@ function Home(props: { mangaList: Manga[]; fetchData: () => any; }) {
 						></MangaCard>)
 				}
 			</div>
-		</div>
+		</div> :
+		<div>Loading...</div>
 	);
 }
 
