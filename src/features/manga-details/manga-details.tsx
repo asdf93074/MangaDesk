@@ -4,7 +4,7 @@ import React from 'react';
 
 function MangaDetails(props: { manga: Manga }) {
 	return (
-		<div className="manga-details">
+		<div className="manga-details" data-testid="manga-details">
 			<FeatureHeader title={'Details'}></FeatureHeader>
 		</div>
 	);
