@@ -18,24 +18,28 @@
 				transition-duration: 0.15s
 				transition-timing-function: ease-in-out
 
-		.details
-			display: flex
-			flex-flow: column nowrap
-			padding: 0px 20px
+	.details
+		display: flex
+		flex-flow: column nowrap
+		padding: 0px 20px
 
-			.desc
-				flex-grow: 1
-				overflow: auto
+		.desc
+			flex-grow: 1
+			overflow: auto
 
-			h2
-				margin-top: 0
-				font-weight: bolder
+		h2
+			margin-top: 0
+			font-weight: bolder
 
-		.tags
-			display: flex
-			color: white
-			flex-shrink: 1
-			flex-wrap: wrap
+	.tags
+		display: flex
+		color: white
+		flex-shrink: 1
+		flex-wrap: wrap
 
-			div.MuiChip-root
-				margin: 5px
+		div.MuiChip-root
+			margin: 5px
+
+@include small
+	.manga-card
+		width: 100%

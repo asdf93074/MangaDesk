@@ -1,1 +1,8 @@
 $navigation-bar: 50px
+
+$breakpoint-s: 1280px
+
+@mixin small
+	@media ( max-width: #{$breakpoint-s} )
+		@content
+	
