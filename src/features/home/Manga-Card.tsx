@@ -3,6 +3,8 @@ import { Manga } from 'models/manga';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import './Manga-card.sass';
+
 function MangaCard(props: { manga: Manga }) {
 	return (
 		<div className="manga-card" data-testid="manga-card">
