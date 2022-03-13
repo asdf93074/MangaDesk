@@ -1,0 +1,41 @@
+.manga-card
+	display: flex
+	width: calc(100% / 2)
+	height: 350px
+	margin-bottom: 10px
+
+	.cover-image
+		cursor: pointer
+
+		img
+			height: 100%
+			width: 225px
+			border-radius: 10px
+			transition-duration: 0.15s
+
+			&:hover
+				border-radius: 5px
+				transition-duration: 0.15s
+				transition-timing-function: ease-in-out
+
+		.details
+			display: flex
+			flex-flow: column nowrap
+			padding: 0px 20px
+
+			.desc
+				flex-grow: 1
+				overflow: auto
+
+			h2
+				margin-top: 0
+				font-weight: bolder
+
+		.tags
+			display: flex
+			color: white
+			flex-shrink: 1
+			flex-wrap: wrap
+
+			div.MuiChip-root
+				margin: 5px
