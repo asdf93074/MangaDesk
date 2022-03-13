@@ -36,7 +36,7 @@ export class MangaDexAPI implements MangaAPI {
 					return {
 						id: d.id,
 						name: d.name,
-						coverUrl: `https://uploads.mangadex.org/covers/${d.id}/${coverUrls[i]}.512.jpg`,
+						coverUrl: `https://uploads.mangadex.org/covers/${d.id}/${coverUrls[i]}.256.jpg`,
 						description: d.description,
 						tags: d.tags,
 					};
