@@ -1,9 +1,10 @@
 import React from 'react';
+import './feature-header.sass';
 
 function FeatureHeader(props: { title: string }) {
 	return (
 		<div className="feature-header" data-testid='feature-header'>
-			<h3>{props.title}</h3>
+			<h1>{props.title}</h1>
 		</div>
 	);
 }
