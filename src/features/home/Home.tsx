@@ -3,7 +3,7 @@ import { Manga } from 'models/manga';
 import React, { useRef } from 'react';
 
 import './Home.sass';
-import MangaCard from './Manga-Card';
+import MangaCard from './manga-card';
 
 function Home(props: { mangaList: Manga[]; fetchData: () => any; }) {
 	const listInnerRef = useRef(null);

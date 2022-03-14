@@ -11,6 +11,7 @@ import isUserOnElectron from '../components/misc/IsUserOnElectron';
 import TopNavigationBar from '../components/layout/TopNavigationBar';
 import HomeContainer from '../features/home/Home.container';
 import MangaDetailsContainer from 'features/manga-details/manga-details.container';
+import ChapterReaderContainer from 'features/chapter-reader/chapter-reader.container';
 
 function App() {
 	return (
@@ -23,9 +24,8 @@ function App() {
 				<div className="app-body">
 					<Switch>
 						<Route path="/" component={HomeContainer} exact />
-					</Switch>
-					<Switch>
 						<Route path="/manga/:id" component={MangaDetailsContainer} exact />
+						<Route path="/chapter/:id/read" component={ChapterReaderContainer} exact />
 					</Switch>
 				</div>
 			</div>

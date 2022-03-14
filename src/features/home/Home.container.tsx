@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import React, { useEffect, useState } from 'react';
-import Home from './Home';
+import Home from './home';
 import { incrementOffset } from './home-slice';
 import { Manga } from 'models/manga';
 

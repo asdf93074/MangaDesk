@@ -2,6 +2,7 @@ import { a, MangaAPI } from 'api/api.interface';
 import axios from 'axios';
 import { Chapter } from 'models/chapter';
 import { Manga } from 'models/manga';
+import { ReadChapter } from 'models/read-chapter';
 
 export class MangaDexAPI implements MangaAPI {
 	sourceName = 'MangaDex';
@@ -31,12 +32,29 @@ export class MangaDexAPI implements MangaAPI {
 	};
 
 	getChapters = (id: string): Promise<Chapter[]> => {
-		return axios.get(`${this.baseUrl}/chapters/${id}`)
+		return axios.get(`${this.baseUrl}/manga/${id}/aggregate`)
 			.then((res) => {
-				return (res.data.data as []).map(mapResponseToChapterObject);
+				const chapters: any[] = [];
+				Object.values(res.data.volumes).forEach((v: any) => chapters.push(...Object.values(v.chapters)));
+				return chapters.map(mapResponseToChapterObject);
 			})
 			.catch((res) => {
 				console.error(`Something went wrong while fetching chapters for manga ${id}.`, res);
+				return null;
+			});
+	};
+
+	readChapter = (id: string): Promise<string[]> => {
+		return axios.get(`${this.baseUrl}/at-home/server/${id}`)
+			.then((res) => {
+				const body = res.data;
+				const baseServerUrl = body.baseUrl;
+				const hash = body.chapter.hash;
+				const urls = (body.chapter.data as []).map((d) => createPageUrl(baseServerUrl, 'data', hash, d));
+				return urls;
+			})
+			.catch((res) => {
+				console.error(`Something went wrong while fetching chapter ${id}.`, res);
 				return null;
 			});
 	};
@@ -55,5 +73,18 @@ function mapResponseToMangaObject(manga: any): Manga {
 }
 
 function mapResponseToChapterObject(ch: any): Chapter {
+	return {
+		name: ch.chapter,
+		id: ch.id,
+		volume: 0,
+		chapterNumber: ch.chapter,
+	};
+}
+
+function createPageUrl(baseUrl: string, data: string, hash: string, filename: string) {
+	return `${baseUrl}/${data}/${hash}/${filename}`;
+}
+
+function mapResponseToReadChapterObject(ch: any): ReadChapter {
 	return;
 }

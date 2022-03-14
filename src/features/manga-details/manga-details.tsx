@@ -2,8 +2,11 @@ import FeatureHeader from 'components/feature-header/feature-header';
 import { Chapter } from 'models/chapter';
 import { Manga } from 'models/manga';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-function MangaDetails(props: { manga: Manga, chapters: Chapter}) {
+import './manga-details.sass';
+
+function MangaDetails(props: { manga: Manga, chapters: Chapter[]}) {
 	return (
 		<div className="manga-details" data-testid="manga-details">
 			<FeatureHeader title={props.manga?.name || 'Loading...'}></FeatureHeader>
@@ -15,7 +18,10 @@ function MangaDetails(props: { manga: Manga, chapters: Chapter}) {
 					{props.manga?.description}
 				</div>
 				<div className="chapters">
-
+					{
+						props.chapters?.map((ch: Chapter) =>
+							<Link to={`../chapter/${ch.id}/read`} key={ch.id}>{ch.chapterNumber}</Link>)
+					}
 				</div>
 			</div>
 		</div>
