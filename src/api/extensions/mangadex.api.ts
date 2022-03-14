@@ -1,5 +1,6 @@
 import { a, MangaAPI } from 'api/api.interface';
 import axios from 'axios';
+import { Chapter } from 'models/chapter';
 import { Manga } from 'models/manga';
 
 export class MangaDexAPI implements MangaAPI {
@@ -28,6 +29,17 @@ export class MangaDexAPI implements MangaAPI {
 				return null;
 			});
 	};
+
+	getChapters = (id: string): Promise<Chapter[]> => {
+		return axios.get(`${this.baseUrl}/chapters/${id}`)
+			.then((res) => {
+				return (res.data.data as []).map(mapResponseToChapterObject);
+			})
+			.catch((res) => {
+				console.error(`Something went wrong while fetching chapters for manga ${id}.`, res);
+				return null;
+			});
+	};
 }
 
 function mapResponseToMangaObject(manga: any): Manga {
@@ -40,4 +52,8 @@ function mapResponseToMangaObject(manga: any): Manga {
 		description: manga.attributes.description.en || manga.attributes.description[0],
 		tags: (manga.attributes.tags as []).filter((tag: any) => tag.attributes.group === 'genre').map((tag: any) => tag.attributes.name.en),
 	};
+}
+
+function mapResponseToChapterObject(ch: any): Chapter {
+	return;
 }
