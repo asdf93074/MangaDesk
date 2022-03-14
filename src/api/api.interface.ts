@@ -1,6 +1,5 @@
 import { Chapter } from 'models/chapter';
 import { Manga } from 'models/manga';
-import { ReadChapter } from 'models/read-chapter';
 
 export interface MangaAPI {
 	sourceName: string;

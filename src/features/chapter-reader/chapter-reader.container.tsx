@@ -1,5 +1,4 @@
 import { useAppSelector } from 'app/hooks';
-import { ReadChapter } from 'models/read-chapter';
 import React, { useEffect, useState } from 'react';
 import ChapterReader from './chapter-reader';
 

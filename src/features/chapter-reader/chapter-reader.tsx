@@ -1,4 +1,3 @@
-import { ReadChapter } from 'models/read-chapter';
 import React from 'react';
 
 import './chapter-reader.sass';
