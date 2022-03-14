@@ -9,36 +9,17 @@ export class MangaDexAPI implements MangaAPI {
 
 	populateHome = (offset: number): Promise<Manga[]> => {
 		let mangas: Manga[] = [];
-		let incompleteData: any[];
-
-		return axios.get(`${this.baseUrl}/manga?limit=${30}&offset=${offset}`)
+		return axios.get(`${this.baseUrl}/manga?limit=${30}&offset=${offset}&includes[]=cover_art`)
 			.then((res) => {
-				const data = (res.data.data as []).map((d: any) => {
+				mangas = (res.data.data as []).map((d: any) => {
+					const coverFileName: string = ((d.relationships as []).find((rel: any) => rel.type === 'cover_art') as any).attributes.fileName;
+
 					return {
 						name: d.attributes.title.en || d.attributes.altTitles[0],
 						id: d.id,
-						coverId: ((d.relationships as []).find((rel: any) => rel.type === 'cover_art') as any).id,
+						coverUrl: `https://uploads.mangadex.org/covers/${d.id}/${coverFileName}.256.jpg`,
 						description: d.attributes.description.en || d.attributes.description[0],
 						tags: (d.attributes.tags as []).filter((tag: any) => tag.attributes.group === 'genre').map((tag: any) => tag.attributes.name.en),
-					};
-				});
-
-				const coverUrls = axios.all(data.map((d) => axios.get(`${this.baseUrl}/cover/${d.coverId}`))).then((res: any) => {
-					return res.map((coverInfo: any) => coverInfo.data.data.attributes.fileName);
-				});
-
-				incompleteData = data;
-
-				return coverUrls;
-			})
-			.then((coverUrls: string[]) => {
-				mangas = incompleteData.map((d, i) => {
-					return {
-						id: d.id,
-						name: d.name,
-						coverUrl: `https://uploads.mangadex.org/covers/${d.id}/${coverUrls[i]}.256.jpg`,
-						description: d.description,
-						tags: d.tags,
 					};
 				});
 
