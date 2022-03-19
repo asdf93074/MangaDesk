@@ -1,3 +1,4 @@
+import { CircularProgress } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 
 import './chapter-reader.sass';
@@ -17,8 +18,8 @@ function ChapterReader(props: { page: string }) {
 		<div className="reader" tabIndex={-1}>
 			{
 				loading ?
-					<div>
-						Loading...
+					<div className="manga-spinner">
+						<CircularProgress size="5rem" />
 					</div>:
 				null
 			}
