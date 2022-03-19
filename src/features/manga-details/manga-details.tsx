@@ -20,7 +20,7 @@ function MangaDetails(props: { manga: Manga, chapters: Chapter[]}) {
 				<div className="chapters">
 					{
 						props.chapters?.map((ch: Chapter) =>
-							<Link to={`../chapter/${ch.id}/read`} key={ch.id}>{ch.chapterNumber}</Link>)
+							<Link to={`../chapter/${ch.id}/read/0`} key={ch.id}>{ch.chapterNumber}</Link>)
 					}
 				</div>
 			</div>
