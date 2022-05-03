@@ -23,6 +23,7 @@ function ChapterReaderContainer(props: any) {
 	};
 
 	useEffect(() => {
+		focus();
 		api.readChapter(id)
 			.then((p: string[]) => setPages(p));
 	}, []);

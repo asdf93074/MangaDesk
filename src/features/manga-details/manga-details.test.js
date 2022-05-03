@@ -5,9 +5,34 @@ import '@testing-library/jest-dom';
 import { mangaList } from '../home/home.mock';
 import MangaDetails from './manga-details';
 
-test('manga-details is visible', async () => {
-	render(<MangaDetails manga={mangaList[0]} />);
+const manga = mangaList[0];
 
-	await waitFor(() => screen.getByTestId('manga-details'));
-	expect(screen.getByTestId('manga-details')).toBeDefined();
+describe('manga-details', () => {
+	test('manga-details is visible', async () => {
+		render(<MangaDetails manga={manga} />);
+
+		await waitFor(() => screen.getByTestId('manga-details'));
+		expect(screen.getByTestId('manga-details')).toBeDefined();
+	});
+
+	test('page header is visible and says details', async () => {
+		render(<MangaDetails manga={manga} />);
+
+		await waitFor(() => screen.getByText(manga.name));
+		expect(screen.getByText(manga.name)).toBeDefined();
+	});
+
+	test('title of manga is displayed', async () => {
+		render(<MangaDetails manga={manga} />);
+
+		await waitFor(() => screen.getByText(manga.name));
+		expect(screen.getByText(manga.name)).toBeDefined();
+	});
+
+	test('description of manga is displayed', async () => {
+		render(<MangaDetails manga={manga} />);
+
+		await waitFor(() => screen.getByText(manga.description));
+		expect(screen.getByText(manga.description)).toBeDefined();
+	});
 });

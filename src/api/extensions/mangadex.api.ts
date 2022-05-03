@@ -3,11 +3,17 @@ import axios from 'axios';
 import { Chapter } from 'models/chapter';
 import { Manga } from 'models/manga';
 import { ReadChapter } from 'models/read-chapter';
+import { AVAILABLE_MANGA_LANGUAGES } from 'utils/utils';
 
 export class MangaDexAPI implements MangaAPI {
 	sourceName = 'MangaDex';
 	baseUrl = 'https://api.mangadex.org';
 	a = a;
+	translationMapping: Map<AVAILABLE_MANGA_LANGUAGES, string> = new Map<AVAILABLE_MANGA_LANGUAGES, string>();
+
+	constructor() {
+		this.translationMapping.set(AVAILABLE_MANGA_LANGUAGES.ENGLISH, 'en');
+	}
 
 	populateHome = (offset: number): Promise<Manga[]> => {
 		return axios.get(`${this.baseUrl}/manga?limit=${30}&offset=${offset}&includes[]=cover_art`)
@@ -32,7 +38,7 @@ export class MangaDexAPI implements MangaAPI {
 	};
 
 	getChapters = (id: string): Promise<Chapter[]> => {
-		return axios.get(`${this.baseUrl}/manga/${id}/aggregate`)
+		return axios.get(`${this.baseUrl}/manga/${id}/aggregate?translatedLanguage[]=en`)
 			.then((res) => {
 				const chapters: any[] = [];
 				Object.values(res.data.volumes).forEach((v: any) => chapters.push(...Object.values(v.chapters)));
