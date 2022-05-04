@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 
 import './chapter-reader.sass';
 
-function ChapterReader(props: { page: string }) {
+function ChapterReader(props: { page: string, onRightArrowClick: () => void,onLeftArrowClick: () => void }) {
 	const [loading, setLoading] = useState<boolean>(false);
 
 	const onFinishPageLoad = (event: any) => {
@@ -20,10 +20,12 @@ function ChapterReader(props: { page: string }) {
 				loading ?
 					<div className="manga-spinner">
 						<CircularProgress size="5rem" />
-					</div>:
-				null
+					</div> :
+					null
 			}
-			<img className={`page ${loading ? 'loading': ''}`} src={props.page} onLoad={onFinishPageLoad}></img>
+			{!loading && <i className='arrow left' onClick={props.onLeftArrowClick} />}
+			<img className={`page ${loading ? 'loading' : ''}`} src={props.page} onLoad={onFinishPageLoad}></img>
+			{!loading && <i className='arrow right' onClick={props.onRightArrowClick} />}
 			{/* {
 				props.pages?.map((pageUrl: string) => <img className='page' key={pageUrl} src={pageUrl}></img>)
 			} */}

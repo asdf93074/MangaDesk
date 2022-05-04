@@ -5,6 +5,7 @@
 	overflow: hidden
 	justify-content: center
 	align-items: center
+	justify-content: center
 
 	.manga-spinner
 		display: flex
@@ -15,3 +16,23 @@
 
 		&.loading
 			display: none
+	.arrow
+		border: solid white
+		border-width: 0 6px 6px 0
+		display: inline-block
+		padding: 6px
+		margin-inline: 20px 
+		transition: 0.2s
+		cursor: pointer
+	.arrow:hover 
+		border: solid grey
+		border-width: 0 6px 6px 0
+	.right 
+		transform: rotate(-45deg)
+
+	.left 
+		transform: rotate(135deg)
+	
+
+
+		
