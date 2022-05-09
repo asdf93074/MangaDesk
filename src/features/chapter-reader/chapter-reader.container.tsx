@@ -29,7 +29,6 @@ function ChapterReaderContainer(props: any) {
 	};
 
 	const handleArrow = (arrowDirection: ARROW_DIRECTION) => {
-		setPageNumber(pageNumber - 1);
 		if (arrowDirection === ARROW_DIRECTION.RIGHT) {
 			if (pageNumber < pages.length - 1) {
 				setPageNumber(pageNumber + 1);
