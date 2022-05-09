@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 
 import './chapter-reader.sass';
 
-function ChapterReader(props: { page: string, onRightArrowClick: () => void,onLeftArrowClick: () => void }) {
+function ChapterReader(props: { page: string, onRightArrowClick: () => void, onLeftArrowClick: () => void }) {
 	const [loading, setLoading] = useState<boolean>(false);
 
 	const onFinishPageLoad = (event: any) => {
@@ -16,6 +16,9 @@ function ChapterReader(props: { page: string, onRightArrowClick: () => void,onLe
 
 	return (
 		<div className="reader" tabIndex={-1}>
+
+			<div className='page-left' onClick={props.onLeftArrowClick}></div>
+			<div className='page-right' onClick={props.onRightArrowClick}></div>
 			{
 				loading ?
 					<div className="manga-spinner">

@@ -5,7 +5,18 @@
 	overflow: hidden
 	justify-content: center
 	align-items: center
-	justify-content: center
+
+	.page-left
+		position: absolute
+		width: 40vw
+		height: 100%
+		left: 0px
+
+	.page-right
+		position: absolute
+		width: 40vw
+		height: 100%
+		right: 0px
 
 	.manga-spinner
 		display: flex
@@ -13,26 +24,25 @@
 
 	.page
 		height: 100%
-
 		&.loading
 			display: none
+
 	.arrow
 		border: solid white
 		border-width: 0 6px 6px 0
 		display: inline-block
 		padding: 16px
-		margin-inline: 20px 
+		margin-inline: 20px
 		transition: 0.2s
+		z-index: 1
 		cursor: pointer
-	.arrow:hover 
+
+	.arrow:hover
 		border: solid grey
 		border-width: 0 6px 6px 0
-	.right 
+		
+	.right
 		transform: rotate(-45deg)
 
-	.left 
+	.left
 		transform: rotate(135deg)
-	
-
-
-		
