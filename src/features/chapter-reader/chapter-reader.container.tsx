@@ -53,7 +53,10 @@ function ChapterReaderContainer(props: any) {
 			<ChapterReader
 				page={pages.length > 0 ? pages[pageNumber] : null}
 				onRightArrowClick={() => handleArrow(ARROW_DIRECTION.RIGHT)}
-				onLeftArrowClick={() => handleArrow(ARROW_DIRECTION.LEFT)} ></ChapterReader>
+				onLeftArrowClick={() => handleArrow(ARROW_DIRECTION.LEFT)}
+				currentPageNumber={pageNumber}
+				totalPageNumber ={pages.length}
+				></ChapterReader>
 		</div>
 	);
 }

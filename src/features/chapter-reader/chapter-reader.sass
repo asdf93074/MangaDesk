@@ -1,3 +1,5 @@
+$transition-time: 0.2s
+$page-color: #1d1d30
 .reader
 	height: 100vh
 	width: 100vw
@@ -33,7 +35,7 @@
 		display: inline-block
 		padding: 16px
 		margin-inline: 20px
-		transition: 0.2s
+		transition: $transition-time
 		z-index: 1
 		cursor: pointer
 
@@ -46,3 +48,22 @@
 
 	.left
 		transform: rotate(135deg)
+
+	.nav-footer 
+		position: fixed
+		width: 100%
+		bottom: 0
+		left: 0
+		right: 0
+		height: 5vh
+		display: flex
+		opacity: 0
+		transition: $transition-time
+
+		span 
+			margin: auto
+			color: white
+
+	.nav-footer:hover 
+		background-color: $page-color
+		opacity: .8

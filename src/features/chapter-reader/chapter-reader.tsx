@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 
 import './chapter-reader.sass';
 
-function ChapterReader(props: { page: string, onRightArrowClick: () => void, onLeftArrowClick: () => void }) {
+function ChapterReader(props: { page: string, onRightArrowClick: () => void, onLeftArrowClick: () => void , totalPageNumber: number, currentPageNumber: number }) {
 	const [loading, setLoading] = useState<boolean>(false);
 
 	const onFinishPageLoad = (event: any) => {
@@ -32,6 +32,9 @@ function ChapterReader(props: { page: string, onRightArrowClick: () => void, onL
 			{/* {
 				props.pages?.map((pageUrl: string) => <img className='page' key={pageUrl} src={pageUrl}></img>)
 			} */}
+			<div className='nav-footer'>
+				<span>{props.currentPageNumber+1}/{props.totalPageNumber}</span>
+			</div>
 		</div>
 	);
 }
