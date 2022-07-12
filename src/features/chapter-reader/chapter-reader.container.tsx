@@ -2,6 +2,11 @@ import { useAppSelector } from 'app/hooks';
 import React, { useEffect, useState } from 'react';
 import ChapterReader from './chapter-reader';
 
+enum ARROW_DIRECTION {
+	RIGHT,
+	LEFT,
+}
+
 function ChapterReaderContainer(props: any) {
 	const { api } = useAppSelector((state) => state.api);
 	const [pages, setPages] = useState([]);
@@ -18,9 +23,24 @@ function ChapterReaderContainer(props: any) {
 		if (event.key === 'ArrowLeft') {
 			if (pageNumber > 0) {
 				setPageNumber(pageNumber - 1);
+
 			}
 		}
 	};
+
+	const handleArrow = (arrowDirection: ARROW_DIRECTION) => {
+		if (arrowDirection === ARROW_DIRECTION.RIGHT) {
+			if (pageNumber < pages.length - 1) {
+				setPageNumber(pageNumber + 1);
+			}
+		}
+		if (arrowDirection === ARROW_DIRECTION.LEFT) {
+			if (pageNumber > 0) {
+				setPageNumber(pageNumber - 1);
+			}
+		}
+	}
+
 
 	useEffect(() => {
 		focus();
@@ -30,7 +50,10 @@ function ChapterReaderContainer(props: any) {
 
 	return (
 		<div tabIndex={1} className="reader-container" onKeyDown={handleKeyPress}>
-			<ChapterReader page={pages.length > 0 ? pages[pageNumber] : null}></ChapterReader>
+			<ChapterReader
+				page={pages.length > 0 ? pages[pageNumber] : null}
+				onRightArrowClick={() => handleArrow(ARROW_DIRECTION.RIGHT)}
+				onLeftArrowClick={() => handleArrow(ARROW_DIRECTION.LEFT)} ></ChapterReader>
 		</div>
 	);
 }
