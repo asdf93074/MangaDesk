@@ -1,3 +1,5 @@
+$transition-time: 0.2s
+$page-color: #1d1d30
 .reader
 	height: 100vh
 	width: 100vw
@@ -6,12 +8,62 @@
 	justify-content: center
 	align-items: center
 
+	.page-left
+		position: absolute
+		width: 40vw
+		height: 100%
+		left: 0px
+
+	.page-right
+		position: absolute
+		width: 40vw
+		height: 100%
+		right: 0px
+
 	.manga-spinner
 		display: flex
 		flex-direction: column
 
 	.page
 		height: 100%
-
 		&.loading
 			display: none
+
+	.arrow
+		border: solid white
+		border-width: 0 6px 6px 0
+		display: inline-block
+		padding: 16px
+		margin-inline: 20px
+		transition: $transition-time
+		z-index: 1
+		cursor: pointer
+
+	.arrow:hover
+		border: solid grey
+		border-width: 0 6px 6px 0
+		
+	.right
+		transform: rotate(-45deg)
+
+	.left
+		transform: rotate(135deg)
+
+	.nav-footer 
+		position: fixed
+		width: 100%
+		bottom: 0
+		left: 0
+		right: 0
+		height: 5vh
+		display: flex
+		opacity: 0
+		transition: $transition-time
+
+		span 
+			margin: auto
+			color: white
+
+	.nav-footer:hover 
+		background-color: $page-color
+		opacity: .8
