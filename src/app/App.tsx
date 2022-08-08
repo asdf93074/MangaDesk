@@ -3,8 +3,6 @@ import {
   Route,
 } from 'react-router-dom';
 
-import '../index';
-
 import './App.sass';
 import isUserOnElectron from '../components/misc/IsUserOnElectron';
 import TopNavigationBar from '../components/layout/TopNavigationBar';

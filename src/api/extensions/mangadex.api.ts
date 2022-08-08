@@ -70,7 +70,7 @@ function mapResponseToMangaObject(manga: any): Manga {
 	const coverFileName: string = ((manga.relationships as []).find((rel: any) => rel.type === 'cover_art') as any).attributes.fileName;
 
 	return {
-		name: manga.attributes.title.en || manga.attributes.altTitles[0],
+		name: manga.attributes.title.en || Object.values(manga.attributes.altTitles[0])[0],
 		id: manga.id,
 		coverUrl: `https://uploads.mangadex.org/covers/${manga.id}/${coverFileName}.256.jpg`,
 		description: manga.attributes.description.en || manga.attributes.description[0],
