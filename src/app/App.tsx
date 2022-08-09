@@ -4,9 +4,9 @@ import {
 } from 'react-router-dom';
 
 import './App.sass';
-import isUserOnElectron from '../components/misc/IsUserOnElectron';
-import TopNavigationBar from '../components/layout/TopNavigationBar';
-import HomeContainer from '../features/home/home.container';
+import isUserOnElectron from 'components/misc/IsUserOnElectron';
+import TopNavigationBar from 'components/layout/TopNavigationBar';
+import HomeContainer from 'features/home/home.container';
 import MangaDetailsContainer from 'features/manga-details/manga-details.container';
 
 function App() {
