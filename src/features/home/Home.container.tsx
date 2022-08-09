@@ -3,11 +3,11 @@ import React, { useEffect, useState } from 'react';
 import Home from './home';
 import { useApi } from 'api/hooks/useApi';
 import { useSettings } from 'hooks/useSettings';
+import { MangaAPI } from 'api/api.interface';
 
 function HomeContainer() {
   let offset = useAppSelector((state) => state.home.offset);
-  const settings = useSettings();
-  const api = settings.API;
+  const api = useSettings('API') as MangaAPI;
 	const [mangas, setMangas] = useState([]);
   const populateHomeApi = useApi(() => api.populateHome(offset));
 
