@@ -1,6 +1,6 @@
 import { MangaDexAPI } from 'api/extensions/mangadex/mangadex.api';
 import { useApi } from 'api/hooks/useApi';
-import { usePreloadImages } from 'hooks/useImagePreload';
+import { usePreloadImages } from 'hooks/usePreloadImages';
 import { useSettings } from 'hooks/useSettings';
 import React, { useEffect, useState } from 'react';
 import ChapterReader from './chapter-reader';
