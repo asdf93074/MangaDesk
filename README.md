@@ -2,7 +2,7 @@
 
 # MangaDesk
 
-A desktop application for a better Manga viewing experience. Built in Node.js, React, Typescript, Webpack, Babel.
+A desktop application for a better Manga viewing experience. Built in Node.js, React, Typescript, Vite.
 
 !["Mangadesk home page"](/docs/manga_desk_home_new.png "Mangadesk home page")
 

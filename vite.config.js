@@ -12,6 +12,7 @@ export default defineConfig({
       'app': path.resolve('./src/app'),
       'models': path.resolve('./src/models'),
       'utils': path.resolve('./src/utils'),
+      'hooks': path.resolve('./src/hooks'),
       './': path.resolve('./src/constants'),
       'features': path.resolve('./src/features'),
       'components': path.resolve('./src/components'),
