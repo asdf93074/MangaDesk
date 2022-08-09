@@ -6,6 +6,8 @@ const SETTINGS = {
   API: new MangaDexAPI(),
 };
 
-export function useSettings() {
+export function useSettings(key?: keyof typeof SETTINGS) {
+  if (SETTINGS.hasOwnProperty(key)) return SETTINGS[key];
+
   return SETTINGS;
 }

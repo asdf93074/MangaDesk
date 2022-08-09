@@ -1,16 +1,19 @@
-import { useAppSelector } from 'app/hooks';
+import { MangaDexAPI } from 'api/extensions/mangadex/mangadex.api';
+import { useApi } from 'api/hooks/useApi';
+import { useSettings } from 'hooks/useSettings';
 import React, { useEffect, useState } from 'react';
 import ChapterReader from './chapter-reader';
 
 function ChapterReaderContainer(props: any) {
-	const { api } = useAppSelector((state) => state.api);
-	const [pages, setPages] = useState([]);
+	const api = useSettings('API') as MangaDexAPI;
 	const [pageNumber, setPageNumber] = useState(parseInt(props.match.params.pageNumber));
+  const readChapterApi = useApi(() => api.readChapter(id));
+
 	const id: string = props.match.params.id;
 
 	const handleKeyPress = (event: any) => {
 		if (event.key === 'ArrowRight') {
-			if (pageNumber < pages.length - 1) {
+			if (pageNumber < readChapterApi.data.length - 1) {
 				setPageNumber(pageNumber + 1);
 			}
 		}
@@ -24,13 +27,12 @@ function ChapterReaderContainer(props: any) {
 
 	useEffect(() => {
 		focus();
-		api.readChapter(id)
-			.then((p: string[]) => setPages(p));
+    readChapterApi.request();
 	}, []);
 
 	return (
 		<div tabIndex={1} className="reader-container" onKeyDown={handleKeyPress}>
-			<ChapterReader page={pages.length > 0 ? pages[pageNumber] : null}></ChapterReader>
+			<ChapterReader page={readChapterApi.data?.length > 0 ? readChapterApi.data[pageNumber] : null}></ChapterReader>
 		</div>
 	);
 }

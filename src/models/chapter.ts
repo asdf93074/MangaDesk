@@ -3,4 +3,6 @@ export interface Chapter {
 	id: string;
 	chapterNumber: number;
 	volume: number;
+  next: Chapter;
+  previous: Chapter;
 }
