@@ -1,8 +1,8 @@
 import { MangaAPI } from 'api/api.interface';
 import { Chapter } from 'models/chapter';
 import { Manga } from 'models/manga';
-import { AVAILABLE_MANGA_LANGUAGES } from 'utils/utils';
-import { buildMangadexRequest, getDefaultParams } from './utils';
+import { AVAILABLE_MANGA_LANGUAGES, CURRENT_LANGUAGE } from 'utils/utils';
+import { buildMangadexRequest, getDefaultParams, TRANSLATION_MAPPING } from './utils';
 
 export class MangaDexAPI implements MangaAPI {
 	sourceName = 'MangaDex';
@@ -45,7 +45,7 @@ export class MangaDexAPI implements MangaAPI {
 	};
 
 	getChapters = (id: string): Promise<Chapter[]> => {
-    return buildMangadexRequest('GET', 'manga', [id, 'aggregate'])
+    return buildMangadexRequest('GET', 'manga', [id, 'aggregate'], { translatedLanguage: [TRANSLATION_MAPPING.get(CURRENT_LANGUAGE)] })
       .then((res) => {
         const chapters: any[] = [];
         Object.values(res.data.volumes).forEach((v: any) => chapters.push(...Object.values(v.chapters)));
