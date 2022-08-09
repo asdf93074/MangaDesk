@@ -5,11 +5,11 @@ import React, { useEffect, useState } from 'react';
 import ChapterReader from './chapter-reader';
 
 function ChapterReaderContainer(props: any) {
+	const id: string = props.match.params.id;
+
 	const api = useSettings('API') as MangaDexAPI;
 	const [pageNumber, setPageNumber] = useState(parseInt(props.match.params.pageNumber));
   const readChapterApi = useApi(() => api.readChapter(id));
-
-	const id: string = props.match.params.id;
 
 	const handleKeyPress = (event: any) => {
 		if (event.key === 'ArrowRight') {
