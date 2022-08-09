@@ -5,10 +5,11 @@ export function useApi(endpoint: () => {}) {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const request = async (...args: any) => {
+  const request = async (callback: () => {}) => {
     setIsLoading(true);
     try {
-      const result = await endpoint(...args);
+      const result = await endpoint();
+      callback();
       setData(result);
     } catch (err) {
       setError(err.message || 'Unexpected Error!');
