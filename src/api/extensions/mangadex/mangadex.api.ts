@@ -17,7 +17,7 @@ export class MangaDexAPI implements MangaAPI {
       ],
     });
 
-    return buildMangadexRequest('GET', 'manga', null, queryParams)
+    return buildMangadexRequest('GET', 'manga', [], queryParams)
       .then((res) => {
         return (res.data.data as []).map((d: any) => mapResponseToMangaObject(d));
       })

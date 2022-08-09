@@ -18,7 +18,7 @@ export const MangadexClient = axios.create({
   baseURL: BASE_URL,
 });
 
-export function buildMangadexRequest<D>(method: Method, resource: string, subRoutes?: string[], params?: any, data?: D) {
+export function buildMangadexRequest<D>(method: Method, resource: string, subRoutes: string[] = [], params?: any, data?: D) {
   // eslint-disable-next-line new-cap
   return MangadexClient(
     buildMangadexURL(resource, subRoutes),
