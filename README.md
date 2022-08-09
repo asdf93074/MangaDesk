@@ -4,6 +4,8 @@
 
 A desktop application for a better Manga viewing experience. Built in Node.js, React, Typescript, Webpack, Babel.
 
+!["Mangadesk home page"](/docs/manga_desk_home_new.png "Mangadesk home page")
+
 # Folder Structure
 
 src/components - shared stuff + app component
