@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { MangaAPI } from './api.interface';
-import { MangaDexAPI } from './extensions/mangadex.api';
+import { MangaDexAPI } from './extensions/mangadex/mangadex.api';
 
 interface APIState {
 	api: MangaAPI,

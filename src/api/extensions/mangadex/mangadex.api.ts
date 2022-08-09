@@ -1,57 +1,64 @@
-import { a, MangaAPI } from 'api/api.interface';
-import axios from 'axios';
+import { MangaAPI } from 'api/api.interface';
 import { Chapter } from 'models/chapter';
 import { Manga } from 'models/manga';
-import { ReadChapter } from 'models/read-chapter';
 import { AVAILABLE_MANGA_LANGUAGES } from 'utils/utils';
+import { buildMangadexRequest, getDefaultParams } from './utils';
 
 export class MangaDexAPI implements MangaAPI {
 	sourceName = 'MangaDex';
-	baseUrl = 'https://api.mangadex.org';
-	a = a;
 	translationMapping: Map<AVAILABLE_MANGA_LANGUAGES, string> = new Map<AVAILABLE_MANGA_LANGUAGES, string>();
 
-	constructor() {
-		this.translationMapping.set(AVAILABLE_MANGA_LANGUAGES.ENGLISH, 'en');
-	}
-
 	populateHome = (offset: number): Promise<Manga[]> => {
-		return axios.get(`${this.baseUrl}/manga?limit=${30}&offset=${offset}&includes[]=cover_art`)
-			.then((res) => {
-				return (res.data.data as []).map((d: any) => mapResponseToMangaObject(d));
-			})
-			.catch((res) => {
-				console.error('Something went wrong while fetching manga.', res);
-				return [];
-			});
+    const queryParams = Object.assign(getDefaultParams(), {
+      limit: 31,
+      offset: offset,
+      includes: [
+        'cover_art',
+      ],
+    });
+
+    return buildMangadexRequest('GET', 'manga', null, queryParams)
+      .then((res) => {
+        return (res.data.data as []).map((d: any) => mapResponseToMangaObject(d));
+      })
+      .catch((res) => {
+        console.error('Something went wrong while fetching manga.', res);
+        return [];
+      });
 	};
 
 	fetchMangaById = (id: string): Promise<Manga> => {
-		return axios.get(`${this.baseUrl}/manga/${id}?includes[]=cover_art`)
-			.then((res) => {
-				return mapResponseToMangaObject(res.data.data);
-			})
-			.catch((res) => {
-				console.error(`Something went wrong while fetching manga ${id}.`, res);
-				return null;
-			});
+    const queryParams = Object.assign(getDefaultParams(), {
+      includes: [
+        'cover_art',
+      ],
+    });
+
+    return buildMangadexRequest('GET', 'manga', [id], queryParams)
+      .then((res) => {
+        return mapResponseToMangaObject(res.data.data);
+      })
+      .catch((res) => {
+        console.error(`Something went wrong while fetching manga ${id}.`, res);
+        return null;
+      });
 	};
 
 	getChapters = (id: string): Promise<Chapter[]> => {
-		return axios.get(`${this.baseUrl}/manga/${id}/aggregate?translatedLanguage[]=en`)
-			.then((res) => {
-				const chapters: any[] = [];
-				Object.values(res.data.volumes).forEach((v: any) => chapters.push(...Object.values(v.chapters)));
-				return chapters.map(mapResponseToChapterObject);
-			})
-			.catch((res) => {
-				console.error(`Something went wrong while fetching chapters for manga ${id}.`, res);
-				return null;
-			});
+    return buildMangadexRequest('GET', 'manga', [id, 'aggregate'])
+      .then((res) => {
+        const chapters: any[] = [];
+        Object.values(res.data.volumes).forEach((v: any) => chapters.push(...Object.values(v.chapters)));
+        return chapters.map(mapResponseToChapterObject);
+      })
+      .catch((res) => {
+        console.error(`Something went wrong while fetching chapters for manga ${id}.`, res);
+        return null;
+      });
 	};
 
 	readChapter = (id: string): Promise<string[]> => {
-		return axios.get(`${this.baseUrl}/at-home/server/${id}`)
+    return buildMangadexRequest('GET', 'at-home', ['server', id])
 			.then((res) => {
 				const body = res.data;
 				const baseServerUrl = body.baseUrl;
@@ -89,8 +96,4 @@ function mapResponseToChapterObject(ch: any): Chapter {
 
 function createPageUrl(baseUrl: string, data: string, hash: string, filename: string) {
 	return `${baseUrl}/${data}/${hash}/${filename}`;
-}
-
-function mapResponseToReadChapterObject(ch: any): ReadChapter {
-	return;
 }
