@@ -5,6 +5,25 @@
   height: 100%
   width: $navigation-bar
 
+  .navigation-drawer
+    display: flex
+    flex-direction: column
+    width: 100%
+
+    .drawer-icon
+      display: flex
+      align-items: center
+      width: 100%
+      padding: 13px
+      cursor: pointer
+      border-radius: 100px
+
+      &.hide
+        visibility: hidden
+
+      &:hover
+        background-color: rgba(1,1,1,0.2)
+
   .navigation-menu
     width: 100%
     display: flex

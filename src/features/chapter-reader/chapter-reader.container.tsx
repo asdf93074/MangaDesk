@@ -10,21 +10,28 @@ import { KEY_CODES } from 'constants/keyCodes';
 
 function ChapterReaderContainer(props: any) {
   const navigate = useNavigate();
-
   const params = useParams();
+
   const id: string = params.id;
 
   const api = useSettings('API') as MangaDexAPI;
   const chapterNavigation = useApi(() => api.getChapterNavigationByChapterId(id));
-  const readChapterApi = useApi(() => api.readChapter(id));
+  const pageUrls = useApi(() => api.readChapter(id));
+  usePreloadImages(pageUrls.data || []);
+
+  /*
+   * const chapterNavigation = buildChapterNavigation();
+   *
+   */
 
   const [pageNumber, setPageNumber] = useState(parseInt(params.pageNumber));
-  usePreloadImages(readChapterApi.data || []);
+
   const rightKeyPress = useKeyPress(KEY_CODES.ARROW_RIGHT);
   const leftKeyPress = useKeyPress(KEY_CODES.ARROW_LEFT);
+  const escKeyPress = useKeyPress(KEY_CODES.ESC);
 
-  const goNextPage = () => {
-    if (pageNumber < readChapterApi.data.length - 1) {
+  const goNextPageOrChapter = () => {
+    if (pageNumber < pageUrls.data.length - 1) {
       setPageNumber(pageNumber + 1);
       navigate(`/chapter/${id}/read/${pageNumber + 1}`);
     } else {
@@ -32,7 +39,7 @@ function ChapterReaderContainer(props: any) {
       navigate(0);
     }
   };
-  const goPreviousPage = () => {
+  const goPreviousPageOrChapter = () => {
     if (pageNumber > 0) {
       setPageNumber(pageNumber - 1);
       navigate(`/chapter/${id}/read/${pageNumber - 1}`);
@@ -41,19 +48,27 @@ function ChapterReaderContainer(props: any) {
       navigate(0);
     }
   };
+  const goToMangaPage = () => {
+    navigate(`/manga/${chapterNavigation.data.manga.id}`);
+  };
 
-  rightKeyPress(goNextPage);
-  leftKeyPress(goPreviousPage);
+  rightKeyPress(goNextPageOrChapter);
+  leftKeyPress(goPreviousPageOrChapter);
+  escKeyPress(goToMangaPage);
 
   useEffect(() => {
     focus();
-    readChapterApi.request();
+    pageUrls.request();
     chapterNavigation.request();
   }, []);
 
   return (
     <div tabIndex={1} className="reader-container">
-      <ChapterReader page={readChapterApi.data?.length > 0 ? readChapterApi.data[pageNumber] : null}></ChapterReader>
+      <ChapterReader
+        page={pageUrls.data?.length > 0 ? pageUrls.data[pageNumber] : null}
+        mangaName={chapterNavigation.data?.name}
+        goToMangaPage={goToMangaPage}>
+      </ChapterReader>
     </div>
   );
 }

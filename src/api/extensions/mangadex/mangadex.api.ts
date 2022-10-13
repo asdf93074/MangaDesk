@@ -92,7 +92,7 @@ export class MangaDexAPI implements MangaAPI {
   };
 
   getChapterNavigationByChapterId = async (id: string): Promise<Chapter> => {
-    const { mangaId, scanlationId } = await this.getMangaAndScanlationIdsByChapterId(id);
+    const { manga, scanlationId } = await this.getMangaAndScanlationByChapterId(id);
 
     const queryParams = Object.assign({
       groups: [
@@ -100,14 +100,15 @@ export class MangaDexAPI implements MangaAPI {
       ],
     });
 
-    return buildMangadexRequest<Chapter>('GET', 'manga', [mangaId, 'aggregate'], queryParams)
+    return buildMangadexRequest<Chapter>('GET', 'manga', [manga.id, 'aggregate'], queryParams)
       .then((res) => {
         const flattenedChapterArray: Array<{ chapter: string, id: string }> = Object.values(res.volumes).flatMap((v: any) => Object.values(v.chapters));
         const chapters: Chapter[] = flattenedChapterArray.map((ch, i) => ({
           id: ch.id,
-          name: ch.id,
+          name: `${manga.name} ${ch.chapter}`,
           chapterNumber: ch.chapter,
           volume: '',
+          manga,
         }));
         chapters.forEach((ch, i) => {
           ch.previous = i > 0 ? chapters[i - 1] : null;
@@ -121,7 +122,7 @@ export class MangaDexAPI implements MangaAPI {
       });
   };
 
-  getMangaAndScanlationIdsByChapterId = (id: string): Promise<{ mangaId: string, scanlationId: string }> => {
+  getMangaAndScanlationByChapterId = (id: string): Promise<{ manga: Manga, scanlationId: string }> => {
     const queryParams = Object.assign({
       includes: [
         'manga',
@@ -132,7 +133,7 @@ export class MangaDexAPI implements MangaAPI {
     return buildMangadexRequest('GET', 'chapter', [id], queryParams)
       // eslint-disable-next-line no-invalid-this
       .then((res) => ({
-        mangaId: this.resolveRelationship(res.data, 'manga').id,
+        manga: mapResponseToMangaObject(this.resolveRelationship(res.data, 'manga')),
         scanlationId: this.resolveRelationship(res.data, 'scanlation_group').id,
       }))
       .catch((res) => {
@@ -159,12 +160,12 @@ export class MangaDexAPI implements MangaAPI {
 }
 
 function mapResponseToMangaObject(manga: any): Manga {
-  const coverFileName: string = ((manga.relationships as []).find((rel: any) => rel.type === 'cover_art') as any).attributes.fileName;
+  const coverFileName: string = manga?.relationships ? ((manga.relationships as []).find((rel: any) => rel.type === 'cover_art') as any).attributes.fileName : null;
 
   return {
     name: manga.attributes.title.en || Object.values(manga.attributes.altTitles[0])[0],
     id: manga.id,
-    coverUrl: `https://uploads.mangadex.org/covers/${manga.id}/${coverFileName}.256.jpg`,
+    coverUrl: coverFileName ? `https://uploads.mangadex.org/covers/${manga.id}/${coverFileName}.256.jpg` : '',
     description: manga.attributes.description.en || manga.attributes.description[0],
     tags: (manga.attributes.tags as []).filter((tag: any) => tag.attributes.group === 'genre').map((tag: any) => tag.attributes.name.en),
   };
@@ -176,7 +177,7 @@ function mapMangaFeedResponseToChapter(mangaFeed: { data: Array<{ attributes: { 
     id: chapter.id,
     chapterNumber: chapter.attributes.chapter,
     volume: chapter.attributes.volume,
-    manga: (chapter as any).relationships.find(i => i.type === 'manga').id,
+    manga: (chapter as any).relationships.find((i) => i.type === 'manga').id,
   }));
 
   chapters.forEach((ch, i) => {
@@ -191,7 +192,7 @@ function mapResponseToChapterObject(ch: any): Chapter {
   return {
     name: ch.chapter,
     id: ch.id,
-    volume: 0,
+    volume: '0',
     chapterNumber: ch.chapter,
   };
 }
