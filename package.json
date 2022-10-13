@@ -46,8 +46,8 @@
     "react-icons": "^3.10.0",
     "react-infinite-scroll-component": "^6.1.0",
     "react-redux": "^7.2.6",
-    "react-router": "^5.2.0",
-    "react-router-dom": "^5.2.0",
+    "react-router": "^6.3.0",
+    "react-router-dom": "^6.3.0",
     "regenerator-runtime": "^0.13.9",
     "typescript": "^3.9.7",
     "vite": "^3.0.4"

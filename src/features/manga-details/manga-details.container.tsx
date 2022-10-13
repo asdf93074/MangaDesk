@@ -2,25 +2,31 @@ import { useAppSelector } from 'app/hooks';
 import { Chapter } from 'models/chapter';
 import { Manga } from 'models/manga';
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router';
 import MangaDetails from './manga-details';
 
 function MangaDetailsContainer(props: any) {
-	const { api } = useAppSelector((state) => state.api);
-	const [manga, setManga] = useState(null);
-	const [chapters, setChapters] = useState(null);
-	const id: string = props.match.params.id;
+  const params = useParams();
+  const { api } = useAppSelector((state) => state.api);
+  const [manga, setManga] = useState(null);
+  const [chapters, setChapters] = useState(null);
 
-	useEffect(() => {
-		api.fetchMangaById(id)
-			.then((manga: Manga) => setManga(manga));
+  const id: string = params.id;
 
-		api.getChapters(id)
-			.then((chs: Chapter[]) => setChapters(chs));
-	}, []);
+  useEffect(() => {
+    api.getMangaById(id)
+      .then((manga: Manga) => setManga(manga));
 
-	return (
-		<MangaDetails manga={manga} chapters={chapters}></MangaDetails>
-	);
+    // api.getChaptersByMangaId(id)
+    //   .then((chs: Chapter[]) => setChapters(chs));
+
+    api.getMangaFeedByMangaId(id)
+      .then((chs: Chapter[]) => setChapters(chs));
+  }, []);
+
+  return (
+    <MangaDetails manga={manga} chapters={chapters}></MangaDetails>
+  );
 }
 
 export default MangaDetailsContainer;

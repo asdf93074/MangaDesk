@@ -27,7 +27,7 @@ export function buildMangadexRequest<D>(method: Method, resource: string, subRou
       params,
       data,
     },
-  );
+  ).then((res) => res.data);
 }
 
 export function buildMangadexURL(resource: string, subRoutes: string[]): string {

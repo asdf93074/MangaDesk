@@ -1,20 +1,10 @@
-import React, {Component} from 'react';
-import {withRouter} from 'react-router-dom';
+import React, { Component } from 'react';
 
 import './TopNavigationBar.sass';
 
 class TopNavigationBar extends Component {
-  navigationMenu: { title: string; }[];
-
   constructor(props: any) {
     super(props);
-
-    this.navigationMenu = [
-      {title: 'Library'},
-      {title: 'Recently Read'},
-      {title: 'Downloads'},
-      {title: 'Settings'},
-    ];
   }
 
   render() {
@@ -25,9 +15,10 @@ class TopNavigationBar extends Component {
         </div>
         <div className="navigation-menu">
           <ul>
-            {this.navigationMenu.map((item) => {
-              <li key={item.title}>{item.title}</li>;
-            })}
+            <li>
+            </li>
+            <li>
+            </li>
           </ul>
         </div>
       </div>
@@ -35,4 +26,4 @@ class TopNavigationBar extends Component {
   }
 }
 
-export default withRouter(TopNavigationBar);
+export default TopNavigationBar;
