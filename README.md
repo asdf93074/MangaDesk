@@ -4,6 +4,8 @@
 
 A desktop application for a better Manga viewing experience. Built in Node.js, React, Typescript, Vite.
 
+To get started, just clone the repo, navigate to its folder and do `npm i` and `npm start`.
+
 !["Mangadesk home page"](/docs/manga_desk_home_new.png "Mangadesk home page")
 
 # Folder Structure
