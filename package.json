@@ -36,7 +36,7 @@
     "@types/react-router-dom": "^5.1.5",
     "@vitejs/plugin-react": "^2.0.0",
     "axios": "^0.24.0",
-    "electron": "^11.5.0",
+    "electron": "^18.3.7",
     "esbuild": "^0.14.54",
     "mangadex-full-api": "^5.7.0",
     "querystring-es3": "^0.2.1",
